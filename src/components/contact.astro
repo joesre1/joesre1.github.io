@@ -1,13 +1,20 @@
+---
+import about_me from "../../public/about_me_1.png";
+---
+
 <section id="contact" class="w-full py-12 border-t border-[#ffffff10]">
   <div class="max-w-5xl mx-auto">
-    <h2 class="text-lg text-[var(--sec)] mb-2 shiny-sec">Let's talk</h2>
+    <h2 class="text-lg text-[var(--sec)] mb-2 shiny-sec">Some personal information</h2>
     <h3 class="text-4xl md:text-5xl font-medium text-[var(--white)] mb-6">
       About me
     </h3>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       <div class="text-[var(--white-icon)]">
         <p class="mb-4">
-          Software engineer specialized in engine and tools programming using Unreal Engine and other custom engines. 5 years of experience in the industry. Worked on multiple shipped titles across multiple platforms. In my free time I like to prototype quick gameplay mechanics and try out things in Unreal. I also like climbing.
+          Software engineer specialized in engine and tools programming using Unreal Engine and other custom engines. 5 years of experience in the industry. Worked on multiple shipped titles across multiple platforms. In my free time I like to prototype quick gameplay mechanics and try out things in Unreal.
+        </p>
+        <p class="mb-4">
+          Apart from programming, I'm a musician, I play the french horn, I also like climbing.
         </p>
         <div class="flex items-center gap-2">
           <span>Location:</span>
@@ -15,47 +22,12 @@
         </div>
       </div>
 
-      <div>
-        <form
-          id="contact-form"
-          action="https://formspree.io/f/mnnjznkj"
-          method="POST"
-          class="flex flex-col gap-4"
-        >
-          <input
-            type="text"
-            name="from_name"
-            placeholder="Name"
-            required
-            class="px-4 py-2 bg-[#1414149c] text-[var(--white)] border border-[var(--white-icon-tr)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--sec)]"
+      <div class="rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 mb-4">
+        <Image
+          src={about_me}
+          alt={"me"}
+          class="w-full h-48 md:h-72 object-cover group-hover:scale-105 transition-transform duration-300"
           />
-          <input
-            type="email"
-            name="reply_to"
-            placeholder="Email"
-            required
-            class="px-4 py-2 bg-[#1414149c] text-[var(--white)] border border-[var(--white-icon-tr)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--sec)]"
-          />
-          <textarea
-            name="message"
-            placeholder="Message"
-            rows="6"
-            required
-            class="px-4 py-2 bg-[#1414149c] text-[var(--white)] border border-[var(--white-icon-tr)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--sec)] resize-none"
-          ></textarea>
-          <button
-            type="submit"
-            class="px-4 py-2 bg-[var(--white-icon-tr)] text-[var(--white)] rounded-lg opacity-60 transition-opacity border border-[var(--white-icon-tr)] hover:opacity-100 hover:bg-[var(--white-icon-tr)]"
-          >
-            Submit
-          </button>
-        </form>
-        <div
-          id="form-message"
-          class="hidden justify-center items-center mt-4 text-[var(--white)] text-lg"
-        >
-          ✅ Thank you for your message!
-        </div>
       </div>
     </div>
   </div>
