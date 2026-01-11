@@ -58,7 +58,6 @@ const { project } = Astro.props;
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {project.gallery.map((img, idx) => (
           <Image
-            key={idx}
             src={img}
             alt={`${project.title} screenshot ${idx + 1}`}
             class="rounded-xl object-cover"
