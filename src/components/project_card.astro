@@ -1,5 +1,5 @@
 ---
-import Image from "astro:assets";
+import { Image } from "astro:assets";
 
 const { project } = Astro.props;
 ---
@@ -57,24 +57,30 @@ const { project } = Astro.props;
   </div>
 </div>
 
-<!-- UPDATED SCRIPT -->
 <script>
-  function toggleProject(id) {
+  function toggleProject(id, btn) {
     const allPanels = document.querySelectorAll(".project-details");
+    const allButtons = document.querySelectorAll(".toggle-btn");
     const target = document.getElementById(`project-${id}`);
 
     if (!target) return;
 
-    const isOpen = target.style.maxHeight && target.style.maxHeight !== "0px";
+    const targetEl = target; // HTMLElement
+    const isOpen =
+      targetEl.style.maxHeight && targetEl.style.maxHeight !== "0px";
 
-    // Close all panels
-    allPanels.forEach(panel => {
-      panel.style.maxHeight = "0px";
+    allPanels.forEach((panel) => {
+      const el = panel; // HTMLElement
+      el.style.maxHeight = "0px";
     });
 
-    // Open clicked panel if it was closed
+    allButtons.forEach((button) => {
+      button.classList.remove("rotate-180");
+    });
+
     if (!isOpen) {
-      target.style.maxHeight = target.scrollHeight + "px";
+      targetEl.style.maxHeight = targetEl.scrollHeight + "px";
+      btn.classList.add("rotate-180");
     }
   }
 </script>
