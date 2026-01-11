@@ -1,9 +1,7 @@
 ---
 import { Image } from "astro:assets";
-import svgl from "../../public/svgl.png";
-import stockin from "../../public/stockin.png";
-import moviesfordevs from "../../public/moviesfordevs.png";
-import velez from "../../public/velez.png";
+import TwinStones from "../../public/twin_stones.png";
+import AtlasEngine from "../../public/atlas_engine.png";
 
 interface Project {
   title: string;
@@ -15,32 +13,18 @@ interface Project {
 
 const projects: Project[] = [
   {
-    title: "MoviesForDevs",
+    title: "Twin Stones",
     image: moviesfordevs as ImageMetadata,
     link: "https://github.com/gothsec/MoviesForDevs",
     preview: "https://movies-for-devs.vercel.app",
-    status: "Deployed",
+    status: "ESAT",
   },
   {
-    title: "StockIn",
+    title: "Atlas Engine",
     image: stockin as ImageMetadata,
     link: "https://github.com/gothsec/stockin-demo",
     preview: "https://stockin-demo.vercel.app",
-    status: "On Development",
-  },
-  {
-    title: "Svgl.app",
-    image: svgl as ImageMetadata,
-    link: "https://github.com/pheralb/svgl",
-    preview: "https://svgl.app",
-    status: "Contributor",
-  },
-  {
-    title: "Rifas Velez Web",
-    image: velez as ImageMetadata,
-    link: "https://github.com/Buga-Software/rifasvelez-web",
-    preview: "https://www.rifasvelez.com",
-    status: "Deployed",
+    status: "ESAT",
   },
 ];
 ---
@@ -50,8 +34,8 @@ const projects: Project[] = [
   class="py-12 border-t border-[#ffffff10] text-[var(--white)]"
 >
   <div class="max-w-5xl mx-auto">
-    <h2 class="text-lg text-[var(--sec)] mb-2 shiny-sec">My work</h2>
-    <h3 class="text-4xl md:text-5xl font-medium mb-8">Projects</h3>
+    <h3 class="text-4xl md:text-5xl font-medium mb-8">Independent & Academic Projects</h3>
+    <h2 class="text-lg text-[var(--sec)] mb-2 shiny-sec">Personal explorations and student work where I experimented, learned, and built ideas from scratch.</h2>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       {
