@@ -88,7 +88,7 @@ const { project } = Astro.props;
 </div>
 
 <script>
-  window.toggleProject = function(id, btn) {
+  (window as any).toggleProject = function(id, btn) {
     // NodeLists
     const allPanels = document.querySelectorAll(".project-details");
     const allButtons = document.querySelectorAll(".toggle-btn");
