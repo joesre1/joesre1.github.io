@@ -6,7 +6,7 @@ import AtlasEngine from "../../public/atlas_engine.png";
 interface Project {
   title: string;
   image: ImageMetadata;
-  link: string;
+  id: string;
   preview: string;
   status: string;
 }
@@ -15,15 +15,15 @@ const projects: Project[] = [
   {
     title: "Twin Stones",
     image: TwinStones as ImageMetadata,
-    link: "https://github.com/gothsec/MoviesForDevs",
-    preview: "https://movies-for-devs.vercel.app",
+    id: "twin_stones",
+    preview: "https://youtu.be/ekIfO7PDAhE",
     status: "ESAT",
   },
   {
     title: "Atlas Engine",
     image: AtlasEngine as ImageMetadata,
-    link: "https://github.com/gothsec/stockin-demo",
-    preview: "https://stockin-demo.vercel.app",
+    id: "atlas_engine",
+    preview: "https://youtu.be/jQECz8RYhtQ",
     status: "ESAT",
   },
 ];
@@ -64,7 +64,7 @@ const projects: Project[] = [
                 <div class="flex gap-2 ml-auto">
                   <a
                     target="_blank"
-                    href={project.link}
+                    href={project.id}
                     aria-label="GitHub"
                     class="size-14 flex justify-center items-center text-[var(--white-icon)] hover:text-white transition duration-300 ease-in-out border border-1 border-[var(--white-icon-tr)] p-3 rounded-xl bg-[#1414149c] hover:bg-[var(--white-icon-tr)]"
                   >

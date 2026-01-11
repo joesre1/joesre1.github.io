@@ -9,7 +9,7 @@ import PortalSII from "../../public/portal_sii.png";
 interface Project {
   title: string;
   image: ImageMetadata;
-  link: string;
+  id: string;
   preview: string;
   status: string;
 }
@@ -18,36 +18,36 @@ const projects: Project[] = [
   {
     title: "Halo: The Master Chief Collection",
     image: MCC as ImageMetadata,
-    link: "https://github.com/gothsec/MoviesForDevs",
-    preview: "https://movies-for-devs.vercel.app",
+    id: "halo_mcc",
+    preview: "https://abstraction.games/game/halo-the-master-chief-collection",
     status: "abstraction games",
   },
   {
     title: "The Endless Dungeon",
     image: DungeonLogo as ImageMetadata,
-    link: "https://github.com/gothsec/stockin-demo",
-    preview: "https://stockin-demo.vercel.app",
+    id: "endless_dungeon",
+    preview: "https://youtu.be/MlQApTnDdLU",
     status: "abstraction games",
   },
   {
     title: "Surviving Mars: Below & Beyond",
     image: BelowAndBeyond as ImageMetadata,
-    link: "https://github.com/pheralb/svgl",
-    preview: "https://svgl.app",
+    id: "suma",
+    preview: "https://abstraction.games/game/survivingmars",
     status: "abstraction games",
   },
   {
     title: "Unreleased AAA first person shooter",
     image: Confidential as ImageMetadata,
-    link: "https://github.com/Buga-Software/rifasvelez-web",
-    preview: "https://www.rifasvelez.com",
+    id: "aaa_fps",
+    preview: "empty",
     status: "abstraction games",
   },
   {
     title: "Portal SII",
     image: PortalSII as ImageMetadata,
-    link: "https://github.com/Buga-Software/rifasvelez-web",
-    preview: "https://www.rifasvelez.com",
+    id: "portal_sii",
+    preview: "empty",
     status: "AHORA freeware",
   },
 ];
@@ -88,7 +88,7 @@ const projects: Project[] = [
                 <div class="flex gap-2 ml-auto">
                   <a
                     target="_blank"
-                    href={project.link}
+                    href={project.id}
                     aria-label="GitHub"
                     class="size-14 flex justify-center items-center text-[var(--white-icon)] hover:text-white transition duration-300 ease-in-out border border-1 border-[var(--white-icon-tr)] p-3 rounded-xl bg-[#1414149c] hover:bg-[var(--white-icon-tr)]"
                   >
