@@ -4,36 +4,26 @@ import { Image } from "astro:assets";
 const { project } = Astro.props;
 ---
 
-<div class="group border border-[#ffffff10] rounded-2xl p-4 project-card">
-  <!-- Preview Link / Image -->
-  <a
-    href={project.preview}
-    target="_blank"
-    rel="noopener noreferrer"
-    class="block rounded-2xl overflow-hidden shadow-lg mb-4 hover:shadow-xl transition-shadow duration-300"
-  >
-    <Image
-      src={project.image}
-      alt={project.title}
-      class="w-full h-48 md:h-72 object-cover transition-transform duration-300 group-hover:scale-105"
-    />
+  <div class="group border border-[#ffffff10] rounded-2xl p-4 project-card">
+  <a href={project.preview} target="_blank" class="block rounded-2xl overflow-hidden shadow-lg mb-4">
+    <Image 
+        src={project.image} 
+        alt={project.title} 
+        class="w-full h-48 md:h-72 object-cover transition-transform group-hover:scale-105" />
   </a>
 
-  <!-- Header -->
   <div class="flex items-start gap-4">
     <div class="flex-grow">
       <h4 class="text-2xl font-semibold">{project.title}</h4>
       <span class="text-sm text-[var(--white-icon)]">{project.status}</span>
     </div>
 
-    <!-- Toggle button for accordion -->
     <button
       type="button"
-      aria-label="Toggle details"
-      class="toggle-btn size-14 flex justify-center items-center text-[var(--white-icon)] hover:text-white transition border border-[var(--white-icon-tr)] rounded-xl bg-[#1414149c] hover:bg-[var(--white-icon-tr)]"
+      class="toggle-btn size-14 flex justify-center items-center text-[var(--white-icon)] hover:text-white border border-[var(--white-icon-tr)] rounded-xl bg-[#1414149c] hover:bg-[var(--white-icon-tr)] transition"
       onclick={`toggleProject('${project.id}', this)`}
     >
-      <svg
+     <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
         fill="currentColor"
@@ -43,81 +33,5 @@ const { project } = Astro.props;
      </svg>
     </button>
   </div>
-
-  <!-- Expandable section -->
-  <div
-    id={`project-${project.id}`}
-    class="project-details overflow-hidden max-h-0 transition-[max-height] duration-700 ease-in-out"
-  >
-    <div class="mt-6 pt-6 border-t border-[#ffffff10] space-y-4">
-      <p class="text-sm text-[var(--white-icon)]">{project.description}</p>
-
-      <!-- Optional gallery -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {project.gallery?.map((img) => (
-          <Image
-            src={img}
-            alt={`${project.title} screenshot`}
-            class="rounded-xl object-cover"
-          />
-        ))}
-      </div>
-
-      <!-- Optional extra links -->
-      <div class="flex gap-2 mt-4">
-        {project.link && (
-          <a
-            target="_blank"
-            href={project.link}
-            aria-label="GitHub"
-            class="size-14 flex justify-center items-center text-[var(--white-icon)] hover:text-white transition duration-300 ease-in-out border border-[var(--white-icon-tr)] p-3 rounded-xl bg-[#1414149c] hover:bg-[var(--white-icon-tr)]"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              class="size-7"
-            >
-              <path d="M24 12L18.3431 17.6569L16.9289 16.2426L21.1716 12L16.9289 7.75736L18.3431 6.34315L24 12ZM2.82843 12L7.07107 16.2426L5.65685 17.6569L0 12L5.65685 6.34315L7.07107 7.75736L2.82843 12ZM9.78845 21H7.66009L14.2116 3H16.3399L9.78845 21Z" />
-            </svg>
-          </a>
-        )}
-      </div>
-    </div>
-  </div>
 </div>
 
-<script>
-  (window as any).toggleProject = function(id, btn) {
-    // NodeLists
-    const allPanels = document.querySelectorAll(".project-details");
-    const allButtons = document.querySelectorAll(".toggle-btn");
-
-    // Target panel
-    const target = document.getElementById(`project-${id}`);
-    if (!target) return;
-
-    const targetEl = /** @type {HTMLElement} */ (target);
-
-    const isOpen =
-      targetEl.style.maxHeight && targetEl.style.maxHeight !== "0px";
-
-    // Close all panels
-    allPanels.forEach((panel) => {
-      const panelEl = panel as HTMLElement; // <-- CAST HERE
-      panelEl.style.maxHeight = "0px";
-    });
-
-    // Reset all buttons
-    allButtons.forEach((button) => {
-      const btnEl = button as HTMLElement; // <-- CAST HERE
-      btnEl.classList.remove("rotate-180");
-    });
-
-    // Open the clicked panel if it was closed
-    if (!isOpen) {
-      targetEl.style.maxHeight = targetEl.scrollHeight + "px";
-      btn.classList.add("rotate-180");
-    }
-  }
-</script>

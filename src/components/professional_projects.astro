@@ -97,5 +97,72 @@ const projects: Project[] = [
         ))
       }
     </div>
+
+    <!-- Shared detail panel -->
+    <div
+      id="project-detail-panel"
+      class="hidden bg-[#141414] border-t border-[#ffffff10] mt-8 py-10 px-6 md:px-12 rounded-2xl"
+    >
+      <div class="max-w-4xl mx-auto space-y-6">
+        <!-- Content will be injected here via JS -->
+      </div>
+    </div>
+
   </div>
 </section>
+
+<script>
+  // Global state
+  let activeProjectId = null;
+
+  // All project cards
+  const cards = document.querySelectorAll('.project-card');
+  const detailPanel = document.getElementById('project-detail-panel');
+  const detailContent = detailPanel?.querySelector('div');
+
+  // Toggle function
+  (window as any).toggleProject = function(projectId, btn) {
+    const project = projects.find(p => p.id === projectId); // assuming you pass projects globally or via data attr
+    if (!project) return;
+
+    // If clicking the already open project → close
+    if (activeProjectId === projectId) {
+      detailPanel.classList.add('hidden');
+      activeProjectId = null;
+      btn.classList.remove('rotate-180');
+      return;
+    }
+
+    // Close any previously open
+    detailPanel.classList.remove('hidden');
+
+    // Update content
+    detailContent.innerHTML = `
+      <h4 class="text-3xl font-semibold mb-4">${project.title}</h4>
+      <p class="text-lg text-gray-300 mb-6">${project.description}</p>
+
+      ${project.gallery?.length ? `
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+          ${project.gallery.map(img => `
+            <img src="${img}" alt="${project.title} screenshot" class="rounded-xl object-cover w-full h-64" />
+          `).join('')}
+        </div>
+      ` : ''}
+
+      ${project.link ? `
+        <a href="${project.link}" target="_blank" class="inline-flex items-center gap-2 text-[var(--sec)] hover:underline">
+          View on GitHub →
+        </a>
+      ` : ''}
+    `;
+
+    // Rotate button
+    document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('rotate-180'));
+    btn.classList.add('rotate-180');
+
+    activeProjectId = projectId;
+
+    // Smooth scroll to detail panel
+    detailPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+</script>
