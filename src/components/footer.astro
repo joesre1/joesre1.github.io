@@ -8,28 +8,19 @@
               {
                 desc: "Built with",
                 name: "Astro",
-                icon: "/svg/astro.svg",
-                alt: "Astro Logo",
               },
               {
                 desc: "Styled with",
                 name: "TailwindCSS",
-                icon: "/svg/tailwindcss.svg",
-                alt: "TailwindCSS Logo",
               },
               {
-                desc: "Based on a Template by Oscar Hernandez.",
-                name: "Vercel",
-                icon: "/svg/vercel.svg",
-                alt: "Vercel Logo",
+                desc: "Based on a Template by",
+                name: " Oscar Hernandez",
               },
             ].map((tech) => (
               <div class="flex items-center justify-center lg:justify-normal space-x-3">
                 <span class="text-[var(--white-icon)] text-sm">
-                  {tech.desc}
-                </span>
-                <span class="text-[var(--white-icon)] text-sm">
-                  {tech.name}
+                  {tech.desc} {tech.name}
                 </span>
               </div>
             ))
