@@ -5,7 +5,7 @@ const { project } = Astro.props;
 ---
 
 <div class="group border border-[#ffffff10] rounded-2xl p-4 project-card">
-  <!-- Preview Image -->
+  <!-- Preview Link / Image -->
   <a
     href={project.preview}
     target="_blank"
@@ -26,63 +26,64 @@ const { project } = Astro.props;
       <span class="text-sm text-[var(--white-icon)]">{project.status}</span>
     </div>
 
-    <!-- Toggle Button -->
+    <!-- Toggle button for accordion -->
     <button
       type="button"
-      aria-label="View project details"
-      class="size-14 flex justify-center items-center text-[var(--white-icon)] hover:text-white transition border border-[var(--white-icon-tr)] rounded-xl bg-[#1414149c] hover:bg-[var(--white-icon-tr)]"
-      onclick={`window.toggleProject('${project.id}')`}
+      aria-label="Toggle details"
+      class="toggle-btn size-14 flex justify-center items-center text-[var(--white-icon)] hover:text-white transition border border-[var(--white-icon-tr)] rounded-xl bg-[#1414149c] hover:bg-[var(--white-icon-tr)]"
+      onclick={`toggleProject('${project.id}', this)`}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
         fill="currentColor"
         class="size-7"
-      >
+     >
         <path d="M24 12L18.3431 17.6569L16.9289 16.2426L21.1716 12L16.9289 7.75736L18.3431 6.34315L24 12ZM2.82843 12L7.07107 16.2426L5.65685 17.6569L0 12L5.65685 6.34315L7.07107 7.75736L2.82843 12ZM9.78845 21H7.66009L14.2116 3H16.3399L9.78845 21Z" />
-      </svg>
+     </svg>
     </button>
   </div>
-</div>
 
-<!-- Bottom row panel -->
-<div
-  id={`panel-${project.id}`}
-  class="project-panel overflow-hidden max-h-0 transition-[max-height] duration-700 ease-in-out w-full flex justify-center"
->
-  <div class="max-w-3xl text-center mt-6 p-6 rounded-2xl border border-[#ffffff10] bg-[#141414]">
-    <h3 class="text-3xl font-semibold text-[var(--white)] mb-4">{project.title}</h3>
-    <p class="text-[var(--white-icon)] mb-4">{project.description}</p>
+  <!-- Expandable section -->
+  <div
+    id={`project-${project.id}`}
+    class="project-details overflow-hidden max-h-0 transition-[max-height] duration-700 ease-in-out"
+  >
+    <div class="mt-6 pt-6 border-t border-[#ffffff10] space-y-4">
+      <p class="text-sm text-[var(--white-icon)]">{project.description}</p>
 
-    {project.gallery && project.gallery.length > 0 && (
+      <!-- Optional gallery -->
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {project.gallery.map((img, idx) => (
+        {project.gallery?.map((img) => (
           <Image
             src={img}
-            alt={`${project.title} screenshot ${idx + 1}`}
+            alt={`${project.title} screenshot`}
             class="rounded-xl object-cover"
           />
         ))}
       </div>
-    )}
 
-    {project.link && (
-      <a
-        href={project.link}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="mt-4 inline-flex items-center justify-center p-3 rounded-xl border border-[var(--white-icon-tr)] bg-[#1414149c] hover:bg-[var(--white-icon-tr)] text-[var(--white-icon)] transition"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="currentColor"
-          class="size-7"
-        >
-          <path d="M24 12L18.3431 17.6569L16.9289 16.2426L21.1716 12L16.9289 7.75736L18.3431 6.34315L24 12ZM2.82843 12L7.07107 16.2426L5.65685 17.6569L0 12L5.65685 6.34315L7.07107 7.75736L2.82843 12ZM9.78845 21H7.66009L14.2116 3H16.3399L9.78845 21Z" />
-        </svg>
-      </a>
-    )}
+      <!-- Optional extra links -->
+      <div class="flex gap-2 mt-4">
+        {project.link && (
+          <a
+            target="_blank"
+            href={project.link}
+            aria-label="GitHub"
+            class="size-14 flex justify-center items-center text-[var(--white-icon)] hover:text-white transition duration-300 ease-in-out border border-[var(--white-icon-tr)] p-3 rounded-xl bg-[#1414149c] hover:bg-[var(--white-icon-tr)]"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              class="size-7"
+            >
+              <path d="M24 12L18.3431 17.6569L16.9289 16.2426L21.1716 12L16.9289 7.75736L18.3431 6.34315L24 12ZM2.82843 12L7.07107 16.2426L5.65685 17.6569L0 12L5.65685 6.34315L7.07107 7.75736L2.82843 12ZM9.78845 21H7.66009L14.2116 3H16.3399L9.78845 21Z" />
+            </svg>
+          </a>
+        )}
+      </div>
+    </div>
   </div>
 </div>
 
@@ -119,4 +120,4 @@ const { project } = Astro.props;
       btn.classList.add("rotate-180");
     }
   }
-  </script>
+</script>
