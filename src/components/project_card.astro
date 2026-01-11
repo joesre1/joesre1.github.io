@@ -59,29 +59,32 @@ const { project } = Astro.props;
 
 <script>
   function toggleProject(id, btn) {
-    // Cast NodeListOf<Element> to NodeListOf<HTMLElement>
+    // NodeLists
     const allPanels = document.querySelectorAll(".project-details");
     const allButtons = document.querySelectorAll(".toggle-btn");
-    const target = document.getElementById(`project-${id}`);
 
+    // Target panel
+    const target = document.getElementById(`project-${id}`);
     if (!target) return;
 
-    // TypeScript requires an explicit cast to HTMLElement
     const targetEl = /** @type {HTMLElement} */ (target);
 
     const isOpen =
       targetEl.style.maxHeight && targetEl.style.maxHeight !== "0px";
 
+    // Close all panels
     allPanels.forEach((panel) => {
-      const el = /** @type {HTMLElement} */ (panel);
-      el.style.maxHeight = "0px";
+      const panelEl = panel as HTMLElement; // <-- CAST HERE
+      panelEl.style.maxHeight = "0px";
     });
 
+    // Reset all buttons
     allButtons.forEach((button) => {
-      const btnEl = /** @type {HTMLElement} */ (button);
+      const btnEl = button as HTMLElement; // <-- CAST HERE
       btnEl.classList.remove("rotate-180");
     });
 
+    // Open the clicked panel if it was closed
     if (!isOpen) {
       targetEl.style.maxHeight = targetEl.scrollHeight + "px";
       btn.classList.add("rotate-180");
