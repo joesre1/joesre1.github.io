@@ -58,6 +58,7 @@ const { project } = Astro.props;
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {project.gallery.map((img, idx) => (
           <Image
+            key={idx}
             src={img}
             alt={`${project.title} screenshot ${idx + 1}`}
             class="rounded-xl object-cover"
@@ -87,17 +88,36 @@ const { project } = Astro.props;
 </div>
 
 <script>
-  (window as any).toggleProject = function (id: string) {
-    // Close all panels first
-    document.querySelectorAll<HTMLElement>(".project-panel").forEach((panel) => {
-      panel.style.maxHeight = "0px";
+  (window as any).toggleProject = function(id, btn) {
+    // NodeLists
+    const allPanels = document.querySelectorAll(".project-details");
+    const allButtons = document.querySelectorAll(".toggle-btn");
+
+    // Target panel
+    const target = document.getElementById(`project-${id}`);
+    if (!target) return;
+
+    const targetEl = /** @type {HTMLElement} */ (target);
+
+    const isOpen =
+      targetEl.style.maxHeight && targetEl.style.maxHeight !== "0px";
+
+    // Close all panels
+    allPanels.forEach((panel) => {
+      const panelEl = panel as HTMLElement; // <-- CAST HERE
+      panelEl.style.maxHeight = "0px";
     });
 
-    // Open clicked panel
-    const panel = document.getElementById(`panel-${id}`);
-    if (!panel) return;
+    // Reset all buttons
+    allButtons.forEach((button) => {
+      const btnEl = button as HTMLElement; // <-- CAST HERE
+      btnEl.classList.remove("rotate-180");
+    });
 
-    const el = panel as HTMLElement;
-    el.style.maxHeight = el.scrollHeight + "px";
-  };
+    // Open the clicked panel if it was closed
+    if (!isOpen) {
+      targetEl.style.maxHeight = targetEl.scrollHeight + "px";
+      btn.classList.add("rotate-180");
+    }
+  }
 </script>
