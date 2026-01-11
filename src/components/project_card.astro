@@ -1,0 +1,80 @@
+---
+import Image from "astro:assets";
+
+const { project } = Astro.props;
+---
+
+<div class="group border border-[#ffffff10] rounded-2xl p-4 project-card">
+  <!-- Preview Image -->
+  <div class="rounded-2xl overflow-hidden shadow-lg mb-4">
+    <Image
+      src={project.image}
+      alt={project.title}
+      class="w-full h-48 md:h-72 object-cover transition-transform duration-300 group-hover:scale-105"
+    />
+  </div>
+
+  <!-- Header -->
+  <div class="flex items-start gap-4">
+    <div class="flex-grow">
+      <h4 class="text-2xl font-semibold">{project.title}</h4>
+      <span class="text-sm text-[var(--white-icon)]">
+        {project.status}
+      </span>
+    </div>
+
+    <!-- Toggle button -->
+    <button
+      type="button"
+      aria-label="Toggle details"
+      class="size-14 flex justify-center items-center text-[var(--white-icon)] hover:text-white transition border border-[var(--white-icon-tr)] rounded-xl bg-[#1414149c] hover:bg-[var(--white-icon-tr)]"
+      onclick={`toggleProject('${project.id}')`}
+    >
+      ▼
+    </button>
+  </div>
+
+  <!-- Expandable section -->
+  <div
+    id={`project-${project.id}`}
+    class="project-details overflow-hidden max-h-0 transition-[max-height] duration-700 ease-in-out"
+  >
+    <div class="mt-6 pt-6 border-t border-[#ffffff10] space-y-4">
+      <p class="text-sm text-[var(--white-icon)]">
+        {project.description}
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {project.gallery?.map((img) => (
+          <Image
+            src={img}
+            alt={`${project.title} screenshot`}
+            class="rounded-xl object-cover"
+          />
+        ))}
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- UPDATED SCRIPT -->
+<script>
+  function toggleProject(id) {
+    const allPanels = document.querySelectorAll(".project-details");
+    const target = document.getElementById(`project-${id}`);
+
+    if (!target) return;
+
+    const isOpen = target.style.maxHeight && target.style.maxHeight !== "0px";
+
+    // Close all panels
+    allPanels.forEach(panel => {
+      panel.style.maxHeight = "0px";
+    });
+
+    // Open clicked panel if it was closed
+    if (!isOpen) {
+      target.style.maxHeight = target.scrollHeight + "px";
+    }
+  }
+</script>
