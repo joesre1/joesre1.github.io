@@ -98,13 +98,35 @@ const projects: Project[] = [
       }
     </div>
 
-    <!-- Shared detail panel -->
+    <!-- Modal Backdrop -->
     <div
-      id="project-detail-panel"
-      class="hidden bg-[#141414] border-t border-[#ffffff10] mt-8 py-10 px-6 md:px-12 rounded-2xl"
+      id="project-modal-backdrop"
+      class="fixed inset-0 z-40 hidden bg-black/60 backdrop-blur-sm"
+    ></div>
+
+    <!-- Modal -->
+    <div
+      id="project-modal"
+      class="fixed z-50 top-1/2 left-1/2 w-[90vw] max-w-4xl
+             -translate-x-1/2 -translate-y-1/2
+             bg-[#141414] border border-[#ffffff10]
+             rounded-2xl shadow-2xl
+             origin-top
+             scale-y-0 opacity-0
+             transition-all duration-500 ease-[cubic-bezier(.4,0,.2,1)]"
     >
-      <div class="max-w-4xl mx-auto space-y-6">
-        <!-- Content will be injected here via JS -->
+      <!-- Close Button -->
+      <button
+        id="project-modal-close"
+        class="absolute top-4 right-4 text-gray-400 hover:text-white transition"
+        aria-label="Close"
+      >
+        ✕
+      </button>
+    
+      <!-- Content -->
+      <div class="p-6 md:p-10 space-y-6 max-h-[80vh] overflow-y-auto">
+        <!-- Injected via JS -->
       </div>
     </div>
 
@@ -114,61 +136,106 @@ const projects: Project[] = [
 
 </section>
 
-<script>
-  // Global state
-  let activeProjectId = null;
+<style>
+  .modal-open {
+    opacity: 1 !important;
+    transform: translate(-50%, -50%) scaleY(1) !important;
+  }
 
+  .modal-closed {
+    opacity: 0;
+    transform: translate(-50%, -50%) scaleY(0);
+  }
+</style>
+
+<script>
+  let activeProjectId = null;
+  
   const projectsContainer = document.getElementById('projects-data-container');
   const projects = JSON.parse(projectsContainer.dataset.projects || '[]');
+  
+  const modal = document.getElementById('project-modal');
+  const backdrop = document.getElementById('project-modal-backdrop');
+  const modalContent = modal.querySelector('div');
+  const closeBtn = document.getElementById('project-modal-close');
+  
+  // Close modal helper
+  function closeModal() {
+    modal.classList.remove('modal-open');
+    modal.classList.add('modal-closed');
+    backdrop.classList.add('hidden');
+    activeProjectId = null;
+  
+    document
+      .querySelectorAll('.toggle-btn')
+      .forEach(b => b.classList.remove('rotate-180'));
+  }
+  
+  // Click backdrop to close
+  backdrop.addEventListener('click', closeModal);
+  closeBtn.addEventListener('click', closeModal);
 
-  // All project cards
-  const cards = document.querySelectorAll('.project-card');
-  const detailPanel = document.getElementById('project-detail-panel');
-  const detailContent = detailPanel?.querySelector('div');
+  (window as any).toggleProject = function (projectId, btn) {
+  const project = projects.find(p => p.id === projectId);
+  if (!project) return;
 
-  // Toggle function
-  (window as any).toggleProject = function(projectId, btn) {
-    const project = projects.find(p => p.id === projectId);
-    if (!project) return;
+  // If already open → close
+  if (activeProjectId === projectId) {
+    closeModal();
+    return;
+  }
 
-    // If clicking the already open project → close
-    if (activeProjectId === projectId) {
-      detailPanel.classList.add('hidden');
-      activeProjectId = null;
-      btn.classList.remove('rotate-180');
-      return;
+  modalContent.innerHTML = `
+    <h4 class="text-3xl font-semibold mb-4">${project.title}</h4>
+    <p class="text-lg text-gray-300 mb-6">${project.description}</p>
+
+    ${
+      project.gallery?.length
+        ? `
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+        ${project.gallery
+          .map(
+            img => `
+          <img
+            src="${img.src ?? img}"
+            alt="${project.title} screenshot"
+            class="rounded-xl object-cover w-full h-64"
+          />
+        `
+          )
+          .join('')}
+      </div>
+    `
+        : ''
     }
 
-    // Close any previously open
-    detailPanel.classList.remove('hidden');
+    ${
+      project.preview && project.preview !== 'empty'
+        ? `
+      <a
+        href="${project.preview}"
+        target="_blank"
+        class="inline-flex items-center gap-2 text-[var(--sec)] hover:underline"
+      >
+        View Project →
+      </a>
+    `
+        : ''
+    }
+  `;
 
-    // Update content
-    detailContent.innerHTML = `
-      <h4 class="text-3xl font-semibold mb-4">${project.title}</h4>
-      <p class="text-lg text-gray-300 mb-6">${project.description}</p>
+  backdrop.classList.remove('hidden');
 
-      ${project.gallery?.length ? `
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-          ${project.gallery.map(img => `
-            <img src="${img}" alt="${project.title} screenshot" class="rounded-xl object-cover w-full h-64" />
-          `).join('')}
-        </div>
-      ` : ''}
+  // Force reflow so animation always plays
+  modal.classList.remove('modal-closed');
+  modal.offsetHeight;
+  modal.classList.add('modal-open');
 
-      ${project.link ? `
-        <a href="${project.link}" target="_blank" class="inline-flex items-center gap-2 text-[var(--sec)] hover:underline">
-          View on GitHub →
-        </a>
-      ` : ''}
-    `;
+  document
+    .querySelectorAll('.toggle-btn')
+    .forEach(b => b.classList.remove('rotate-180'));
 
-    // Rotate button
-    document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('rotate-180'));
-    btn.classList.add('rotate-180');
-
-    activeProjectId = projectId;
-
-    // Smooth scroll to detail panel
-    detailPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  btn.classList.add('rotate-180');
+  activeProjectId = projectId;
   };
 </script>
