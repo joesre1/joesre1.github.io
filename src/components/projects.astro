@@ -477,17 +477,38 @@ modalContent.innerHTML = `
 
   ${project.description
     .sort((a, b) => a.sectionImportance - b.sectionImportance)
-    .map(section => `
-      <section class="mb-6">
-        <h5 class="${getSectionHeadingClass(section.sectionImportance)} mb-2">
-          ${section.sectionTitle}
-        </h5>
-        <p class="text-gray-300 leading-relaxed">
-          ${section.sectionDescription}
-        </p>
-      </section>
-    `)
-    .join('')
+  .map(section => {
+    if (section.sectionImportance === 4) {
+      // Split by comma and trim spaces
+      const tools = section.sectionDescription.split(',').map(t => t.trim());
+      return `
+        <section class="mb-6">
+          <h5 class="${getSectionHeadingClass(section.sectionImportance)} mb-2">
+            ${section.sectionTitle}
+          </h5>
+          <div class="flex flex-wrap gap-2">
+            ${tools.map(tool => `
+              <span class="px-3 py-1 bg-[#2a2a2a] text-white rounded-full text-sm">
+                ${tool}
+              </span>
+            `).join('')}
+          </div>
+        </section>
+      `;
+    } else {
+      // Normal section
+      return `
+        <section class="mb-6">
+          <h5 class="${getSectionHeadingClass(section.sectionImportance)} mb-2">
+            ${section.sectionTitle}
+          </h5>
+          <p class="text-gray-300 leading-relaxed">
+            ${section.sectionDescription}
+          </p>
+        </section>
+      `;
+    }
+  }).join('')
   }
 
   ${
