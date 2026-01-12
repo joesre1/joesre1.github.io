@@ -278,6 +278,13 @@ const projects: Project[] = [
     opacity: 0;
     transform: translate(-50%, -50%) scaleY(0);
   }
+
+    /* Divider animation */
+  @keyframes grow {
+    to {
+      transform: scaleX(1);
+    }
+  }
 </style>
 
 <script>
@@ -333,6 +340,13 @@ const projects: Project[] = [
 
 modalContent.innerHTML = `
   <h4 class="text-4xl font-semibold mb-8">${project.title}</h4>
+
+  <div
+  class="w-full h-px mb-8
+         bg-gradient-to-r from-transparent via-[#ffffff30] to-transparent
+         scale-x-0 origin-center
+         animate-[grow_0.5s_ease-out_forwards]">
+  </div>
 
   ${project.description
     .sort((a, b) => a.sectionImportance - b.sectionImportance)
