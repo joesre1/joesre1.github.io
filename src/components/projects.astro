@@ -374,6 +374,18 @@ const projects: Project[] = [
     transform: translate(-50%, -50%) scaleY(0);
   }
 
+  #project-modal,
+  #project-modal .modal-scroll {
+    color: var(--white);
+  }
+
+  #project-modal h4,
+  #project-modal h5,
+  #project-modal p,
+  #project-modal a {
+    color: inherit; /* ensures all text uses modal color */
+  }
+
     /* Divider animation */
   @keyframes grow {
     to {
