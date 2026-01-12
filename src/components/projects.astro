@@ -386,6 +386,25 @@ const projects: Project[] = [
     color: inherit; /* ensures all text uses modal color */
   }
 
+  .modal-carousel::-webkit-scrollbar {
+  height: 8px;
+  }
+  .modal-carousel::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .modal-carousel::-webkit-scrollbar-thumb {
+    background-color: rgba(255,255,255,0.2);
+    border-radius: 999px;
+  }
+  .modal-carousel::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255,255,255,0.35);
+  }
+  
+  /* Make carousel hide overflow visually on small screens */
+  .modal-carousel {
+    -webkit-overflow-scrolling: touch;
+  }
+
     /* Divider animation */
   @keyframes grow {
     to {
@@ -474,15 +493,14 @@ modalContent.innerHTML = `
   ${
     project.gallery?.length
       ? `
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
+    <div class="modal-carousel mt-8 overflow-x-auto scroll-smooth snap-x snap-mandatory">
       ${project.gallery.map(img => `
-        <img
-          src="${img.src ?? img}"
-          alt="${project.title} screenshot"
-          class="rounded-xl object-cover w-full h-64"
-        />
-      `).join('')}
-    </div>
+      <div class="snap-start flex-shrink-0 w-80 sm:w-96 md:w-[28rem] lg:w-[32rem] mr-4">
+        <img src="${img.src ?? img}" alt="${project.title} screenshot"
+           class="rounded-xl object-cover w-full h-64" />
+        </div>
+    `).join('')}
+  </div>
   `
       : ''
   }
