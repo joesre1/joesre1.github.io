@@ -110,9 +110,7 @@ const projects: Project[] = [
 
   </div>
 
-  <script type="application/json" id="projects-data">
-    {JSON.stringify(projects)}
-  </script>
+  <div id="projects-data-container" data-projects={JSON.stringify(projects)} hidden></div>
 
 </section>
 
@@ -120,7 +118,8 @@ const projects: Project[] = [
   // Global state
   let activeProjectId = null;
 
-  const projects = JSON.parse(document.getElementById('projects-data').textContent);
+  const projectsContainer = document.getElementById('projects-data-container');
+  const projects = JSON.parse(projectsContainer.dataset.projects || '[]');
 
   // All project cards
   const cards = document.querySelectorAll('.project-card');
