@@ -23,6 +23,16 @@ import Portal4 from "../../public/portal_4.png"
 import TwinStones from "../../public/twin_stones.png";
 import AtlasEngine from "../../public/atlas_engine.png";
 
+import Stones1 from "../../public/stones_1.png"
+import Stones2 from "../../public/stones_4.png"
+import Stones3 from "../../public/stones_3.png"
+import Stones4 from "../../public/stones_2.png"
+
+import Atlas1 from "../../public/atlas_1.png"
+import Atlas2 from "../../public/atlas_4.png"
+import Atlas3 from "../../public/atlas_3.png"
+import Atlas4 from "../../public/atlas_2.png"
+
 interface ProjectSection 
 {
   sectionImportance: number;
@@ -208,30 +218,44 @@ const projects: Project[] = [
         sectionImportance: 1,
         sectionTitle: "Overview",
         sectionDescription:
-          "Worked as part of a multidisciplinary team maintaining and extending Halo: The Master Chief Collection across multiple platforms."
+          "In the final year of ESAT's HND, we made groups of cross discipline people to build a videogame together and publish in on Steam. Twin Stones is the project I worked on as a programmer.<br>During 9 months we worked like a professional team with deliverables and deadlines."
       },
       {
         sectionImportance: 2,
-        sectionTitle: "Responsibilities",
+        sectionTitle: "My work",
         sectionDescription:
-          "Gameplay bug fixing, performance optimization, platform-specific fixes, and cross-discipline collaboration."
+          "Some teachers acted like producers and oriented and guided our work. I was in charge of the main character basic movement and the majority of the mechanics.<br>After I also made some of the enemies AI behaviour. When the art assets were ready, I integrated all the animations in my different characters and made some VFX for them."
       },
       {
         sectionImportance: 3,
-        sectionTitle: "Technical Focus",
+        sectionTitle: "Character Movement",
         sectionDescription:
-          "Engine-level debugging, legacy system refactoring, and console certification compliance."
+          "The game is a 3D platformer, so the movement has to be very fluid and natural. With the help of the team, we iterated a lot in the basic movement and jumping in order to get a fluid, smooth base movement."
+      },
+      {
+        sectionImportance: 3,
+        sectionTitle: "Enemies",
+        sectionDescription:
+          "To complete the challenges of the levels, we decided to add enemies. The interaction with them is quite simple but I found an opportunity to learn how to model an AI using the behaviour trees of Unreal Engine 4."
+      },
+      {
+        sectionImportance: 3,
+        sectionTitle: "Animation integration",
+        sectionDescription:
+          "In early prototype stages, we achieved a fluid motion sense, but with the animations, that sense and feeling will improve a lot. <br>The art team made a great job and with the necessary adjustments and using different tools of the engine we managed to get a very competent final result."
       },
       {
         sectionImportance: 4,
         sectionTitle: "Tools & Technologies",
         sectionDescription:
-          "C++, proprietary engine tools, Perforce, internal debugging and profiling tools."
+          "C++, UE4, Perforce, Behaviour Trees, AI, Animation, Physics"
       }
     ],
     gallery: [
-      TwinStones as ImageMetadata,
-      TwinStones as ImageMetadata,
+      Stones1 as ImageMetadata,
+      Stones2 as ImageMetadata,
+      Stones3 as ImageMetadata,
+      Stones4 as ImageMetadata,
     ],
     personal: true
   },
@@ -246,25 +270,19 @@ const projects: Project[] = [
         sectionImportance: 1,
         sectionTitle: "Overview",
         sectionDescription:
-          "Worked as part of a multidisciplinary team maintaining and extending Halo: The Master Chief Collection across multiple platforms."
+          "Multithreading render engine using C++ and OpenGL. The engine has multiple graphic features: shadow maps, SSAO, anti aliasing, deferred rendering with light volumes, etc.<br>It also is integrated with ImGui to allow the user to edit and save scenes using LUA as a scripting language."
       },
       {
         sectionImportance: 2,
-        sectionTitle: "Responsibilities",
+        sectionTitle: "My work",
         sectionDescription:
-          "Gameplay bug fixing, performance optimization, platform-specific fixes, and cross-discipline collaboration."
-      },
-      {
-        sectionImportance: 3,
-        sectionTitle: "Technical Focus",
-        sectionDescription:
-          "Engine-level debugging, legacy system refactoring, and console certification compliance."
+          "I made the engine from scratch together with a friend. It was part of the Graphics programming subject in ESAT's HND.I'm quite happy with the final result and all the graphic features we were able to put in."
       },
       {
         sectionImportance: 4,
         sectionTitle: "Tools & Technologies",
         sectionDescription:
-          "C++, proprietary engine tools, Perforce, internal debugging and profiling tools."
+          "C++, OpenGL, GLSL, Shaders, ECS, RenderDoc"
       }
     ],
     gallery: [
