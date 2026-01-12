@@ -2,7 +2,6 @@
 import { Image } from "astro:assets";
 
 const { project } = Astro.props;
-const { projectsArray } = Astro.props;
 ---
 
   <div class="group border border-[#ffffff10] rounded-2xl p-4 project-card">
@@ -22,7 +21,7 @@ const { projectsArray } = Astro.props;
     <button
       type="button"
       class="toggle-btn size-14 flex justify-center items-center text-[var(--white-icon)] hover:text-white border border-[var(--white-icon-tr)] rounded-xl bg-[#1414149c] hover:bg-[var(--white-icon-tr)] transition"
-      onclick={`toggleProject('${project.id}', this, '${projectsArray}')`}
+      onclick={`toggleProject('${project.id}', this)`}
     >
      <svg
         xmlns="http://www.w3.org/2000/svg"

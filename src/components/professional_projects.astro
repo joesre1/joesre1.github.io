@@ -93,7 +93,7 @@ const projects: Project[] = [
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       {
         projects.map((project) => (
-          <ProjectCard project={project} projectsArray={projects} />
+          <ProjectCard project={project} />
         ))
       }
     </div>
@@ -121,10 +121,7 @@ const projects: Project[] = [
   const detailContent = detailPanel?.querySelector('div');
 
   // Toggle function
-  (window as any).toggleProject = function(projectId, btn, projectsArray) {
-    const project = projectsArray.find(p => p.id === projectId); // assuming you pass projects globally or via data attr
-    if (!project) return;
-
+  (window as any).toggleProject = function(projectId, btn) {
     // If clicking the already open project → close
     if (activeProjectId === projectId) {
       detailPanel.classList.add('hidden');
