@@ -115,6 +115,8 @@ const projects: Project[] = [
   // Global state
   let activeProjectId = null;
 
+  (window as any).projects = ${JSON.stringify(projects)};
+
   // All project cards
   const cards = document.querySelectorAll('.project-card');
   const detailPanel = document.getElementById('project-detail-panel');
@@ -122,6 +124,9 @@ const projects: Project[] = [
 
   // Toggle function
   (window as any).toggleProject = function(projectId, btn) {
+    const project = projects.find(p => p.id === projectId); // assuming you pass projects globally or via data attr
+    if (!project) return;
+
     // If clicking the already open project → close
     if (activeProjectId === projectId) {
       detailPanel.classList.add('hidden');
